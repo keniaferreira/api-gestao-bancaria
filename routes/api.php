@@ -3,17 +3,22 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::prefix('conta')->group(function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+	Route::post('/', [\App\Http\Controllers\ContaController::class, 'criarConta']);
+	Route::get('{id}', [\App\Http\Controllers\ContaController::class, 'consultarConta']);
+
+	Route::post('/criarcontainicial', function() {
+		$contaCriar = new \Illuminate\Http\Request();
+		$contaCriar->replace([
+    		'saldo'    => 500
+    	]);
+		$contaCriar = \App\Http\Controllers\ContaController::criarConta($contaCriar);
+
+		return Response::json($contaCriar);
+	});	
+});
+
+Route::prefix('transacao')->group(function () {
+	Route::post('/', [\App\Http\Controllers\TransacaoController::class, 'efetuarTransacao']);
 });
