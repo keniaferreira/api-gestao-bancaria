@@ -26,6 +26,10 @@
 
 ## POST: /api/conta/1 para visualizar a conta inicial criada
 
+## O uso do endpoint acima com uma conta_id não existente, retornará o erro 400.
+
 ## POST: /api/conta com um Json definido para criar uma conta com um saldo específico. Exemplo: {"saldo":200}
 
 ## POST: /api/transacao com o Json: {"forma_pagamento":"D", "conta_id": "1234", "valor":10} para testar uma transação. Caso a conta_id 1234 ainda não exista, ela será criada com um saldo inicial de 100. As demais formas de pagamento propostas, C & P, também são válidas para teste.
+
+## Caso, durante o teste do endpoint acima, não haja saldo suficiente na conta acionada pela transação, será retornado o erro 400.
